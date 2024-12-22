@@ -1,0 +1,18 @@
+.red_text {
+color: red;
+}
+div ul li {
+color: green;
+
+}
+.niga {
+text-decoration: line-through;
+
+}
+
+.niga:hover {
+    color :red;
+    text-decoration: underline;
+    cursor: ;
+    text-decoration-color: green;
+}
