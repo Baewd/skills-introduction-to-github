@@ -1,0 +1,5 @@
+git status - статус комита 
+git add . - сохранение файлов перед комитом
+git commit -m "" - сохранение комита
+git log - история комитов
+git push origin master - отправка на сервер
