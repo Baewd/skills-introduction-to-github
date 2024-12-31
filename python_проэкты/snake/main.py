@@ -91,23 +91,93 @@ def Turn_left():
         (list_snake[index_turn_list])[index_turn] = 1
 
 
-while go == True:
-    new_go = False
-    i = input()
-    if i == "1":
-        Turn_left()
-    else:
-        Turn_right()
+def Turn_up():
+    global list_snake, max_index_list_snake
 
+    new_list = []
+    a = -1
+    index_turn_list = None
+    index_turn = None
 
     for i in list_snake:
+
+        a += 1
+        new_list_list = []
+        index = -1
+
+
         for ii in i:
-            if ii == 1:
-                new_go = True
-    go = new_go
+            index += 1
 
-    if go == False:
-        list_snake = "sory noob"
+            if ii == 1:
+                index_turn_list = a - 1
+                index_turn = index
+
+
+
+            if type(ii) == int:  # увеличение номера тела
+
+                if ii < max_index_list_snake:
+                    new_list_list.append(ii + 1)  # увеличение всех индексов на 1
+
+                else:
+                    new_list_list.append(" ")  # удаление хвоста
+
+            else:
+                new_list_list.append(ii)  # добавление пустоты
+
+        new_list.append(new_list_list)
+    list_snake = new_list
+
+    a = -1
+    new_list = []
+    new_list_list = []
+
 
     for i in list_snake:
-        print(i)
+        a += 1
+        index = -1
+        new_list_list = []
+        for ii in i:
+            index += 1
+            if index == index_turn:
+                if a == index_turn_list:
+                    ii = 1
+            new_list_list.append(ii)
+
+
+        new_list.append(new_list_list)
+
+    list_snake = new_list
+
+
+
+# while go == True:
+#     new_go = False
+#     i = input()
+#     if i == "1":
+#         Turn_left()
+#     else:
+#         Turn_right()
+#
+#
+#     for i in list_snake:
+#         for ii in i:
+#             if ii == 1:
+#                 new_go = True
+#     go = new_go
+#
+#     if go == False:
+#         list_snake = "sory noob"
+#
+#     for i in list_snake:
+#         print(i)
+
+
+for i in list_snake:
+    print(i)
+
+Turn_up()
+
+for i in list_snake:
+    print(i)

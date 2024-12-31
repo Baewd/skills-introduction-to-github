@@ -92,7 +92,6 @@ def Start_destroy():
     button_revers.place(x = 230, y = 550)
 
 
-
 def Create_button():
     global  button_left, button_right, button_revers
     button_left.destroy()
@@ -110,10 +109,6 @@ def Create_button():
     button_revers = tk.Button(win,text = "@", fg = "black", bg= "#006400",                #create button_revers
     font = ("", "17",""), activeforeground = "#006400", command = Sleep , width=2)
     button_revers.place(x = 230, y = 550)
-
-
-def Revers():
-    pass
 
 
 def Turn_left():
@@ -272,17 +267,6 @@ def Turn_down():
                         pass
     except:
         pass
-# else:
-# new_list_list = []
-# new_list = []
-        # for list_list in list:
-        #     new_list_list = []
-        #     for i in list_list:
-        #         if i == "o":
-        #             i = "x"
-        #         new_list_list.append(i)
-        #     new_list.append(new_list_list)
-        # list = new_list
 
 
     dictionary_append = []
@@ -426,7 +410,7 @@ def display_list(list):
     try:
         label_list_tetris.destroy()
     except:
-        print("1")
+        pass
 
     str_list_tetris = ""
 
