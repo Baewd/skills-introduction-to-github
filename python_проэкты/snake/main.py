@@ -29,7 +29,7 @@ list_snake = [
 
 def Turn_right():
     global  list_snake, go, max_index_list_snake, direction
-    direction = "right"
+    # direction = "right"
     new_list = []
     a = -1
 
@@ -71,8 +71,7 @@ def Turn_right():
 
 def Turn_left():
     global  list_snake, go, max_index_list_snake, direction
-    print("1")
-    direction = "left"
+    # direction = "left"
     new_list = []
     a = -1
     index_turn = 0
@@ -116,7 +115,7 @@ def Turn_left():
 
 def Turn_up():
     global list_snake, max_index_list_snake, go, direction
-    direction = "up"
+    # direction = "up"
 
     new_list = []
     a = -1
@@ -181,7 +180,7 @@ def Turn_up():
 
 def Turn_down():
     global list_snake, max_index_list_snake, go, direction
-    direction = "down"
+    # direction = "down"
 
     new_list = []
     a = -1
@@ -268,15 +267,48 @@ def aplee():
                 append_apple = False
 
 
+def direction_l():
+    global direction
+    direction = "left"
+
+def direction_r():
+    global direction
+    direction = "right"
+
+def direction_u():
+    global direction
+    direction = "up"
+
+def direction_d():
+    global direction
+    direction = "down"
+
+
+def button():
+    global left_button, right_button, up_button, down_button, direction
+
+    left_button = tk.Button(win, text = "<" ,bg = "black", fg = "green", command= direction_l)
+    right_button = tk.Button(win, text = ">" , bg = "black", fg = "green", command= direction_r)
+    up_button = tk.Button(win, text = "^" , bg = "black", fg = "green", command= direction_u)
+    down_button = tk.Button(win, text = "v" ,bg = "black", fg = "green", command= direction_d)
+
+    left_button.place(x = 100, y = 100)
+    right_button.place(x = 200, y = 200)
+    up_button.place(x = 300, y = 300)
+    down_button.place(x = 400, y = 400)
+
+button()
+
+
 while go == True:                   #начало цикла игры
+
+
+    win.update()
+
 
 
     if start_time + 2 < time.time() :       #проверка прошло ли 2 секуны
         start_time = time.time()
-        for i in list_snake:  # вывод
-            print(i)
-        print(" ")
-
 
 
         if direction == "right":
@@ -291,8 +323,14 @@ while go == True:                   #начало цикла игры
         if direction == "down":
             Turn_down()
 
+        aplee()
 
-    aplee()
+        print("")
+        for i in list_snake:  # вывод
+            print(i)
+        print('')
+
+
 
     for i in list_snake:                #проверка на наличие головы
         for ii in i:
