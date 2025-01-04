@@ -1,9 +1,20 @@
 import random
+import time
 import tkinter as tk
 import keyboard
 
+                            #tkinter_win
+win = tk.Tk()
+win.geometry("600x600")
+win.config(bg="black")
+win.resizable(False, False)
+
+
+
 go = True
 max_index_list_snake = 1
+direction = None
+start_time = time.time()
 list_snake = [
         [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
         [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -17,7 +28,8 @@ list_snake = [
             ]
 
 def Turn_right():
-    global  list_snake, go, max_index_list_snake
+    global  list_snake, go, max_index_list_snake, direction
+    direction = "right"
     new_list = []
     a = -1
 
@@ -58,7 +70,9 @@ def Turn_right():
 
 
 def Turn_left():
-    global  list_snake, go, max_index_list_snake
+    global  list_snake, go, max_index_list_snake, direction
+    print("1")
+    direction = "left"
     new_list = []
     a = -1
     index_turn = 0
@@ -101,7 +115,8 @@ def Turn_left():
 
 
 def Turn_up():
-    global list_snake, max_index_list_snake, go
+    global list_snake, max_index_list_snake, go, direction
+    direction = "up"
 
     new_list = []
     a = -1
@@ -165,7 +180,8 @@ def Turn_up():
 
 
 def Turn_down():
-    global list_snake, max_index_list_snake, go
+    global list_snake, max_index_list_snake, go, direction
+    direction = "down"
 
     new_list = []
     a = -1
@@ -252,10 +268,29 @@ def aplee():
                 append_apple = False
 
 
-
-
-
 while go == True:                   #начало цикла игры
+
+
+    if start_time + 2 < time.time() :       #проверка прошло ли 2 секуны
+        start_time = time.time()
+        for i in list_snake:  # вывод
+            print(i)
+        print(" ")
+
+
+
+        if direction == "right":
+            Turn_right()
+
+        if direction == "left":
+            Turn_left()
+
+        if direction == "up":
+            Turn_up()
+
+        if direction == "down":
+            Turn_down()
+
 
     aplee()
 
@@ -268,27 +303,25 @@ while go == True:                   #начало цикла игры
     if go == False:                     #завершение игры
         list_snake = "sory noob"
 
-    for i in list_snake:            #вывод
-        print(i)
 
     new_go = False
-    i = input("направление")
+    # a = input("направление")
+    #
+    #
+    # if a == "a" or a == "ф":        #left
+    #     Turn_left()
+    #
+    # if a == "d" or a == "в":        #right
+    #     Turn_right()
+    #
+    # if a == "w" or a == "ц":        #up
+    #     Turn_up()
+    #
+    # if a == "s" or a == "ы":        #down
+    #     Turn_down()
 
 
-    if i == "a" or i == "ф":        #left
-        Turn_left()
-
-    if i == "d" or i == "в":        #right
-        Turn_right()
-
-    if i == "w" or i == "ц":        #up
-        Turn_up()
-
-    if i == "s" or i == "ы":        #down
-        Turn_down()
-
-
-
+win.mainloop()
 
 
 
