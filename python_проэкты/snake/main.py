@@ -5,11 +5,12 @@ import keyboard
 
                             #tkinter_win
 win = tk.Tk()
-win.geometry("600x600")
-win.config(bg="black")
+win.geometry("550x600")
+win.config(bg="white")
 win.resizable(False, False)
 
-
+canvas = tk.Canvas(win, bg="black", width=554, height=554, borderwidth=-2)
+speed = 1.5
 
 go = True
 max_index_list_snake = 1
@@ -271,13 +272,16 @@ def direction_l():
     global direction
     direction = "left"
 
+
 def direction_r():
     global direction
     direction = "right"
 
+
 def direction_u():
     global direction
     direction = "up"
+
 
 def direction_d():
     global direction
@@ -285,17 +289,63 @@ def direction_d():
 
 
 def button():
-    global left_button, right_button, up_button, down_button, direction
+    global left_button, right_button, up_button, down_button, direction, max_index_list_snake, list_max_index_list_snake
+
+    try:
+        left_button.destroy()
+        right_button.destroy()
+        up_button.destroy()
+        down_button.destroy()
+        list_max_index_list_snake.destroy()
+    except:
+        pass
 
     left_button = tk.Button(win, text = "<" ,bg = "black", fg = "green", command= direction_l)
     right_button = tk.Button(win, text = ">" , bg = "black", fg = "green", command= direction_r)
     up_button = tk.Button(win, text = "^" , bg = "black", fg = "green", command= direction_u)
     down_button = tk.Button(win, text = "v" ,bg = "black", fg = "green", command= direction_d)
 
-    left_button.place(x = 100, y = 100)
-    right_button.place(x = 200, y = 200)
-    up_button.place(x = 300, y = 300)
-    down_button.place(x = 400, y = 400)
+    left_button.place(x = 250, y = 525)
+    right_button.place(x = 350, y = 525)
+    up_button.place(x = 300, y = 500)
+    down_button.place(x = 300, y = 550)
+
+
+def displey_snake():
+    global list_snake, canvas
+
+    canvas.destroy()
+
+    canvas = tk.Canvas(win, bg="white", width=604, height=604, borderwidth=-2)
+    canvas.create_rectangle(50, 30, 500, 480, fill = "White", outline= "Black", width= 2)
+
+
+    index = 0              #индекс в листе
+    index_list = 0         #индекс листа
+
+    for i in list_snake:
+        index_list += 1
+        index = 0
+
+        for ii in i:
+            index += 1
+            if ii == 1:
+                canvas.create_rectangle(index * 50, (index_list * 50) - 20, (index + 1) * 50, ((index_list + 1) * 50) - 20, fill = "#FF4D00")
+
+            if ii != " " and ii != "A" and ii != 1:
+                canvas.create_rectangle(index * 50, (index_list * 50) - 20, (index + 1) * 50, ((index_list + 1) * 50) - 20, fill = "red", outline= "red")
+
+            if ii == "A":
+                canvas.create_oval(index * 50, (index_list * 50) - 20, (index + 1) * 50, ((index_list + 1) * 50) - 20, fill = "green", outline= "green")
+
+    list_max_index_list_snake = tk.Label(win, text=max_index_list_snake, bg="white", fg="green", font=("", "18", "bold"), anchor="s")
+
+    list_max_index_list_snake.place(x=260, y=-6)
+
+    canvas.pack()
+    button()
+
+
 
 button()
 
@@ -305,9 +355,16 @@ while go == True:                   #начало цикла игры
 
     win.update()
 
+    if max_index_list_snake >= 5:
+        speed = 1
+    if max_index_list_snake >= 15:
+        speed = 0.8
+    if max_index_list_snake >= 25:
+        speed = 0.5
 
 
-    if start_time + 2 < time.time() :       #проверка прошло ли 2 секуны
+
+    if start_time + speed < time.time() :       #проверка прошло ли 2 секуны
         start_time = time.time()
 
 
@@ -325,10 +382,7 @@ while go == True:                   #начало цикла игры
 
         aplee()
 
-        print("")
-        for i in list_snake:  # вывод
-            print(i)
-        print('')
+        displey_snake()         #вывод на экран картинки
 
 
 
@@ -339,7 +393,12 @@ while go == True:                   #начало цикла игры
     go = new_go
 
     if go == False:                     #завершение игры
-        list_snake = "sory noob"
+        # canvas.destroy()
+        label_loss = tk.Label(win, text = "sory noob", bg = "white", fg="green", font = ("", "55","bold"))
+        label_loss.place(x = 100, y = 200)
+        win.update()
+        time.sleep(1)
+        win.destroy()
 
 
     new_go = False
